@@ -5,7 +5,7 @@ import { vec3, mat4 } from 'gl-matrix';
 const createCamera = require('3d-view-controls');
 
 export const CreateShapeWithTexture = async (vertexData: Float32Array, normalData: Float32Array, uvData: Float32Array, 
-    textureFile = 'brick.png', lightInputs:LightInputs = {}, isAnimation = true) => {
+    textureFile = 'brick.png', addressModeU = 'repeat',addressModeV = 'repeat', lightInputs:LightInputs = {}, isAnimation = true) => {
     const gpu = await InitGPU();
     const device = gpu.device;
 
@@ -102,7 +102,7 @@ export const CreateShapeWithTexture = async (vertexData: Float32Array, normalDat
     }
 
     // get texture and sampler data
-    const ts = await GetTexture(device, textureFile);
+    const ts = await GetTexture(device, textureFile, addressModeU, addressModeV);
 
     const uniformBindGroup = device.createBindGroup({
         layout: pipeline.getBindGroupLayout(0),
